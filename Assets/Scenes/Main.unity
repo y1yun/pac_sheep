@@ -1985,7 +1985,7 @@ GameObject:
   - component: {fileID: 203031638}
   - component: {fileID: 203031640}
   m_Layer: 0
-  m_Name: clover_static
+  m_Name: Clover_pac_student
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
