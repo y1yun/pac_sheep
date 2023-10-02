@@ -17,6 +17,8 @@ public class A3_Movement_Clover : MonoBehaviour
     private float startTime;
     private bool isMoving = false;
 
+    // public AudioSource moveWithoutPellet;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +33,9 @@ public class A3_Movement_Clover : MonoBehaviour
             distance = Vector3.Distance(startPos, endPos);
             startTime = Time.time;
             isMoving = true;
+
+            // moveWithoutPellet.loop = true;
+            // moveWithoutPellet.Play();
 
             if(currentWaypoint ==0)
             ani.SetTrigger("MoveRight");
