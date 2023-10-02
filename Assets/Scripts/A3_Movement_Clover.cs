@@ -31,10 +31,7 @@ public class A3_Movement_Clover : MonoBehaviour
             distance = Vector3.Distance(startPos, endPos);
             startTime = Time.time;
             isMoving = true;
-        }
-    }
 
-    private void Update(){
             if(currentWaypoint ==0)
             ani.SetTrigger("MoveRight");
 
@@ -46,6 +43,10 @@ public class A3_Movement_Clover : MonoBehaviour
 
             if(currentWaypoint ==3)
             ani.SetTrigger("MoveUp");
+        }
+    }
+
+    private void Update(){
             
 
         if (isMoving)
