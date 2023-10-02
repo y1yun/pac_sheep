@@ -9,6 +9,7 @@ public class A3_Movement_Clover : MonoBehaviour
     //4 waypoints made in unity
     public float speed = 5f;
     public int currentWaypoint = 0;
+    public Animator ani;
 
     private Vector3 startPos;
     private Vector3 endPos;
@@ -34,6 +35,19 @@ public class A3_Movement_Clover : MonoBehaviour
     }
 
     private void Update(){
+            if(currentWaypoint ==0)
+            ani.SetTrigger("MoveRight");
+
+            if(currentWaypoint ==1)
+            ani.SetTrigger("MoveDown");
+
+            if(currentWaypoint ==2)
+            ani.SetTrigger("MoveLeft");
+
+            if(currentWaypoint ==3)
+            ani.SetTrigger("MoveUp");
+            
+
         if (isMoving)
         {
             float distanceTraveled = (Time.time - startTime)* speed;
@@ -54,7 +68,7 @@ public class A3_Movement_Clover : MonoBehaviour
             }
         }
     }
-
+}
 //     private void Move(){
 //         currentWaypoint = 0;
 
@@ -77,4 +91,4 @@ public class A3_Movement_Clover : MonoBehaviour
 //     }
 // }
 
-}
+
