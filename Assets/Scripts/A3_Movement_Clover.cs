@@ -17,11 +17,28 @@ public class A3_Movement_Clover : MonoBehaviour
     private float startTime;
     private bool isMoving = false;
 
+    public AudioSource intro;
+    public AudioSource BGM;
+    public AudioSource empty;
+
+
     // public AudioSource moveWithoutPellet;
 
     // Start is called before the first frame update
     void Start()
     {
+        intro.Play();
+        Invoke("AfterIntro", intro.clip.length);
+        // Move();
+    }
+
+    void AfterIntro()
+    {
+        BGM.loop = true;
+        empty.loop = true;
+        BGM.Play();
+        empty.Play();
+
         Move();
     }
 
