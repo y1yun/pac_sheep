@@ -45,6 +45,10 @@ public class LevelGenerator : MonoBehaviour
     void Generate()
     {
         GameObject topLeft = new GameObject("TopLeft_Generated");
+        GameObject topRight = new GameObject("TopRight_Generated");
+        // GameObject topLeft = new GameObject("TopLeft_Generated");
+
+
         //levelMap.GetLength(0) gives you the length (the number of rows)
         //levelMap.GetLength(1) gives you the length (the number of columns) 
         for (int col =0; col < levelMap.GetLength(1); col++)
@@ -64,7 +68,12 @@ public class LevelGenerator : MonoBehaviour
                 }
                 //Quaternion.identity indicates no initial rotation
             }
+
         }
+        GameObject generatedTopRight = Instantiate(topLeft);
+        generatedTopRight.transform.SetParent(topRight.transform);
+        generatedTopRight.transform.localScale = new Vector3(-1, 1, 1);
+        generatedTopRight.transform.position = new Vector3(10,0,0);
     }
 
     GameObject ChooseType(int tileType)
