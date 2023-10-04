@@ -57,7 +57,8 @@ public class LevelGenerator : MonoBehaviour
             for (int row=0; row < levelMap.GetLength(0); row++)
             {
                 int tileType = levelMap[row, col];
-                Vector3 tilePosition = new Vector3(col-8.5f, -row+4.5f, 0);
+                Vector3 tilePosition = new Vector3(col-8.5f, -row+4.5f, 0); 
+                // move it to the same spot as manually created level
 
                 GameObject tileAsset = ChooseType(tileType);
 
@@ -67,6 +68,7 @@ public class LevelGenerator : MonoBehaviour
                 GameObject generated = Instantiate(tileAsset, tilePosition, tileRotation);
                 generated.transform.SetParent(topLeft.transform);
                 }
+
             }
 
         }
@@ -75,17 +77,46 @@ public class LevelGenerator : MonoBehaviour
         generatedTopRight.transform.SetParent(topRight.transform);
         generatedTopRight.transform.localScale = new Vector3(-1, 1, 1);
         generatedTopRight.transform.position = new Vector3(10,0,0);
+
         //mirror bottom-left quadrant
         GameObject generatedBottomLeft = Instantiate(topLeft);
         generatedBottomLeft.transform.SetParent(bottomLeft.transform);
         generatedBottomLeft.transform.localScale = new Vector3(1, -1, 1);
-        generatedBottomLeft.transform.position = new Vector3(0,-20,0);
+        generatedBottomLeft.transform.position = new Vector3(0,-19,0);
+
+for (int i = 0; i < bottomLeft.transform.childCount; i++)
+{
+    Transform child = bottomLeft.transform.GetChild(i);
+    for (int j = 0; j< child.childCount; j++){
+    Transform childOfChild = child.GetChild(j);
+            Debug.Log("Child Y Position: " + childOfChild.localPosition.y);
+    if (childOfChild.localPosition.y == -9.5)
+    {
+        childOfChild.gameObject.SetActive(false);
+    }
+    }
+}
+
         //mirror bottom-right quadrant
         GameObject generatedBottomRight = Instantiate(topLeft);
         generatedBottomRight.transform.SetParent(bottomRight.transform);
         generatedBottomRight.transform.localScale = new Vector3(-1, -1, 1);
-        generatedBottomRight.transform.position = new Vector3(10,-20,0);
+        generatedBottomRight.transform.position = new Vector3(10,-19,0);
+
+for (int i = 0; i < bottomRight.transform.childCount; i++)
+{
+    Transform child = bottomRight.transform.GetChild(i);
+    for (int j = 0; j< child.childCount; j++){
+        Transform childOfChild = child.GetChild(j);
+    if (childOfChild.localPosition.y == -9.5)
+    {
+        childOfChild.gameObject.SetActive(false);
     }
+    }
+}
+    }
+
+
 
     GameObject ChooseType(int tileType)
     {
