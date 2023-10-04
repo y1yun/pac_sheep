@@ -89,7 +89,7 @@ for (int i = 0; i < bottomLeft.transform.childCount; i++)
     Transform child = bottomLeft.transform.GetChild(i);
     for (int j = 0; j< child.childCount; j++){
     Transform childOfChild = child.GetChild(j);
-            Debug.Log("Child Y Position: " + childOfChild.localPosition.y);
+            // Debug.Log("Child Y Position: " + childOfChild.localPosition.y);
     if (childOfChild.localPosition.y == -9.5)
     {
         childOfChild.gameObject.SetActive(false);
