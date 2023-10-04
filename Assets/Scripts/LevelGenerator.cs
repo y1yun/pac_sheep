@@ -44,6 +44,7 @@ public class LevelGenerator : MonoBehaviour
 
     void Generate()
     {
+        GameObject topLeft = new GameObject("TopLeft_Generated");
         //levelMap.GetLength(0) gives you the length (the number of rows)
         //levelMap.GetLength(1) gives you the length (the number of columns) 
         for (int col =0; col < levelMap.GetLength(1); col++)
@@ -51,14 +52,15 @@ public class LevelGenerator : MonoBehaviour
             for (int row=0; row < levelMap.GetLength(0); row++)
             {
                 int tileType = levelMap[row, col];
-                Vector3 tilePosition = new Vector3(col, -row, 0);
+                Vector3 tilePosition = new Vector3(col-8.5f, -row+4.5f, 0);
 
                 GameObject tileAsset = ChooseType(tileType);
 
                 if (tileAsset != null) //avoid case 0
                 {
                 Quaternion tileRotation = DecideRotation(tileType, col, row);
-                Instantiate(tileAsset, tilePosition, tileRotation);
+                GameObject generated = Instantiate(tileAsset, tilePosition, tileRotation);
+                generated.transform.SetParent(topLeft.transform);
                 }
                 //Quaternion.identity indicates no initial rotation
             }
