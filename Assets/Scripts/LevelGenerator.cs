@@ -56,7 +56,10 @@ public class LevelGenerator : MonoBehaviour
                 GameObject tileAsset = ChooseType(tileType);
 
                 if (tileAsset != null) //avoid case 0
-                Instantiate(tileAsset, tilePosition, Quaternion.identity);
+                {
+                Quaternion tileRotation = DecideRotation(tileType, col, row);
+                Instantiate(tileAsset, tilePosition, tileRotation);
+                }
                 //Quaternion.identity indicates no initial rotation
             }
         }
@@ -102,5 +105,152 @@ public class LevelGenerator : MonoBehaviour
             return null; //avoid null exceptions
 
         }
+    }
+
+    Quaternion DecideRotation(int tileType, int col, int row)
+    {
+        Quaternion tileRotation = Quaternion.identity;
+        int right = -1;
+        int left = -1;
+        int above = -1;
+        int under = -1;
+        //-1 means does not exist
+
+        if (col < levelMap.GetLength(1)-1)
+        right = levelMap[row, col+1];
+//length -1 cuz col/row starts from 0
+        if (col > 0)
+        left = levelMap[row, col-1];
+
+        if (row > 0)
+        above = levelMap[row-1, col];
+
+        if (row < levelMap.GetLength(0)-1)
+        under = levelMap[row+1, col];
+
+        //empty
+        // if (tileType == 0){
+        //     tileRotation = Quaternion.identity;
+        // }
+        //outsideCorner
+        if (tileType == 1){
+            if (above ==2 && right == 2)
+            tileRotation = Quaternion.Euler(0,0,90);
+
+            if (left == 2 && under ==2)
+            tileRotation = Quaternion.Euler(0,0,270);
+
+            if (above == 2 && left == 2)
+            tileRotation = Quaternion.Euler(0,0,180);
+        }
+        //oursideWall
+        if (tileType == 2){
+            if (left == 1 || left == 2 || right == 2|| right == 1)
+            tileRotation = Quaternion.Euler(0,0,90);
+        }
+        //insideCorner
+        if (tileType == 3){
+            if (above ==4 && right == 4 && left != 4)
+            tileRotation = Quaternion.Euler(0,0,90);
+
+            if (left == 4 && under ==4 && right != 4)
+            tileRotation = Quaternion.Euler(0,0,270);
+
+            if (above == 4 && left == 4 && right != 4)
+            tileRotation = Quaternion.Euler(0,0,180);
+
+            if (above == 3 && right == 4 && under != 4)
+            tileRotation = Quaternion.Euler(0,0,90);
+
+            if (above == 3 && left == 4 && right != 4)
+            tileRotation = Quaternion.Euler(0,0,180);
+
+            if (under == 3 && left == 4 && right != 4 )
+            tileRotation = Quaternion.Euler(0,0,270);
+
+            if (left == 3 && under == 4)
+            tileRotation = Quaternion.Euler(0,0,270);
+
+            if (above == 4 && right == 3)
+            tileRotation = Quaternion.Euler(0,0,90);
+
+            if (left == 3 && above == 4)
+            tileRotation = Quaternion.Euler(0,0,180); 
+
+            if (left == 0 && under == 0)   
+            tileRotation = Quaternion.Euler(0,0,90); 
+            
+            if (left == 5 && under == 5 && right == -1 && above == 4)   
+            tileRotation = Quaternion.Euler(0,0,90); 
+
+            if (left == 4 && under == 4 && right == -1 )
+            tileRotation = Quaternion.Euler(0,0,270); 
+
+            if (left == 4 && right == 4 && above == 4 && under == 3)
+            tileRotation = Quaternion.Euler(0,0,90);
+            
+            // if (left == 4 && right == 4 && above == 3 && under == 4)
+            // tileRotation = Quaternion.Euler(0,0,0);
+        
+        }
+        //insideWall
+        if (tileType == 4){
+            if (left == 3 && right == 3 )
+            tileRotation = Quaternion.Euler(0,0,90);
+
+            if (left == 3 && right == 4 && under == 4)
+            tileRotation = Quaternion.Euler(0,0,90);
+
+            if (left == 4 && right == 3 && under == 4)
+            tileRotation = Quaternion.Euler(0,0,90);
+
+            if (left == 3 && right == 4 && above == 4)
+            tileRotation = Quaternion.Euler(0,0,90);
+
+            if (left == 4 && right == 3 && above == 4)
+            tileRotation = Quaternion.Euler(0,0,90);
+
+            if (left == 3 && right == 4 && under == 0)
+            tileRotation = Quaternion.Euler(0,0,90);
+
+            if (left == 4 && right == 3 && under == 0)
+            tileRotation = Quaternion.Euler(0,0,90);
+
+            if (left == 3 && right == 4 && above == 0)
+            tileRotation = Quaternion.Euler(0,0,90);
+
+            if (left == 4 && right == 3 && above == 0)
+            tileRotation = Quaternion.Euler(0,0,90);
+
+            if (left == 4 && right == 4 && under == 0)
+            tileRotation = Quaternion.Euler(0,0,90);
+
+            if (left == 4 && right == 4 && above == 0)
+            tileRotation = Quaternion.Euler(0,0,90);
+
+            if (left == 4 && right == 4 && under == 4)
+            tileRotation = Quaternion.Euler(0,0,90);
+
+            if (above == 0 && right ==0)
+            tileRotation = Quaternion.Euler(0,0,90);
+
+            if (left == 4 && under == 3 && above == 5 && right == -1)
+            tileRotation = Quaternion.Euler(0,0,90);
+        }
+        // //standardPellet
+        // if (tileType == 5){
+        //     tileRotation = Quaternion.identity;
+        // }
+        // //PowerPellet
+        // if (tileType == 6){
+        //     tileRotation = Quaternion.identity;
+        // }
+        // //TJunction
+        // if (tileType == 7){
+        //     tileRotation = Quaternion.identity;
+        // }
+
+        return tileRotation;
+
     }
 }
