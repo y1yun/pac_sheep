@@ -18,8 +18,8 @@ public class A3_Movement_Clover : MonoBehaviour
     private bool isMoving = false;
 
     public AudioSource intro;
-    public AudioSource BGM;
-    public AudioSource empty;
+    // public AudioSource BGM;
+    // public AudioSource empty;
 
 
     // public AudioSource moveWithoutPellet;
@@ -28,19 +28,19 @@ public class A3_Movement_Clover : MonoBehaviour
     void Start()
     {
         intro.Play();
-        Invoke("AfterIntro", intro.clip.length);
+        // Invoke("AfterIntro", intro.clip.length);
         // Move();
     }
 
-    void AfterIntro()
-    {
-        BGM.loop = true;
-        empty.loop = true;
-        BGM.Play();
-        empty.Play();
+    // void AfterIntro()
+    // {
+    //     BGM.loop = true;
+    //     empty.loop = true;
+    //     BGM.Play();
+    //     empty.Play();
 
-        Move();
-    }
+    //     Move();
+    // }
 
     private void Move(){
         if (currentWaypoint < waypoints.Length)
