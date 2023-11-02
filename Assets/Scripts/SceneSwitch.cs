@@ -10,4 +10,10 @@ public class SceneSwitch : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+    public void ReturnToStartScene()
+    {
+        SceneManager.LoadScene(0);
+    }
+    
+
 }
